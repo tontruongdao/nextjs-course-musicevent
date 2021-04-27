@@ -1,5 +1,5 @@
-import React from 'react'
 import { useRouter } from 'next/router'
+import Layout from '../../components/Layout'
 
 const EventById = () => {
 
@@ -7,10 +7,12 @@ const EventById = () => {
   console.log(router);
 
   return (
-    <div>
-      <h1>Event By Id</h1>
-      <button onClick={() => router.push('/')}>Home</button>
-    </div>
+    <Layout>
+      <div>
+        <h1>Event By Id</h1>
+        <button onClick={() => router.push('/')}>Home</button>
+      </div>
+    </Layout>
   )
 }
 
