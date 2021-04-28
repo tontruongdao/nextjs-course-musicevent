@@ -1,18 +1,62 @@
 import { useRouter } from 'next/router'
+import Link from 'next/Link'
+import Image from 'next/image'
+import { FaPencilAlt, FaTimes } from 'react-icons/fa'
 
 import Layout from '@/components/Layout'
 import { API_URL } from '@/config/index'
+import styles from '@/styles/Event.module.css'
 
 const EventPage = ({ evt }) => {
 
-  const router = useRouter()
-  // console.log(router);
+  const deleteEvent = e => {
+    console.log('delete')
+  }
 
   return (
     <Layout>
-      <div>
+      <div className={styles.event}>
+        <div className={styles.controls}>
+          <Link href={`/events/edit/${evt.id}`}>
+            <a>
+              <FaPencilAlt/>
+            </a>
+          </Link>
+          <a 
+            href='#' 
+            className={styles.delete}
+            onClick={deleteEvent}>
+            <FaTimes/>
+            DeleteEvent
+          </a>
+        </div>
+
+        <span>
+          {evt.date} at {evt.time}
+        </span>
         <h1>{evt.name}</h1>
-        <button onClick={() => router.push('/')}>Home</button>
+        
+        {evt.image && (
+          <div className={styles.image}>
+            <Image 
+              src={evt.image}
+              width={960}
+              height={600}/>
+          </div>
+        )}
+
+        <h3>Performers:</h3>
+        <p>{evt.performers}</p>
+        <h3>Descriptions</h3>
+        <p>{evt.description}</p>
+        <h3>Venue: {evt.venue}</h3>
+        <p>{evt.address}</p>
+
+        <Link href='/events'>
+          <a className={styles.back}>
+            {'<'} Go Back
+          </a>
+        </Link>
       </div>
     </Layout>
   )
@@ -20,7 +64,7 @@ const EventPage = ({ evt }) => {
 
 export default EventPage
 
-
+// ########## Fetching Data Method 1
 export const getStaticPaths= async() => {
 
   const res = await fetch(`${API_URL}/api/events`)
@@ -50,6 +94,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
     }
   }
 }
+
+
+// ########## Fetching Data Method 2
 
 // export const getServerSideProps = async ({ query: { slug } }) => {
 
