@@ -10,7 +10,7 @@ import { API_URL } from '@/config/index'
 import styles from '@/styles/Form.module.css'
 
 
-const EditEventPage = ( { evt: { name, performers, venue, address, date, time, description } }) => {
+const EditEventPage = ( { evt: { name, performers, venue, address, date, time, description, id } }) => {
 
   // ##### Component variables
 
@@ -43,9 +43,9 @@ const EditEventPage = ( { evt: { name, performers, venue, address, date, time, d
     }
 
 
-    // Post Request
-    const res = await fetch(`${API_URL}/events`, {
-      method: 'POST',
+    // PUT Request
+    const res = await fetch(`${API_URL}/events/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
