@@ -39,7 +39,7 @@ const EventPage = ({ evt }) => {
         {evt.image && (
           <div className={styles.image}>
             <Image 
-              src={evt.image}
+              src={evt.image.formats.medium.url} // modified path in object to match "strapi.io's"
               width={960}
               height={600}/>
           </div>
@@ -67,7 +67,7 @@ export default EventPage
 // ########## Fetching Data Method 1
 export const getStaticPaths= async() => {
 
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/events`)
   const events = await res.json()
 
   const paths = events.map(evt => ({
@@ -83,7 +83,7 @@ export const getStaticPaths= async() => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
-  const res = await fetch(`${API_URL}/api/events/${slug}`)
+  const res = await fetch(`${API_URL}/events?slug=${slug}`)
   const events = await res.json()
   // console.log(events)
 
