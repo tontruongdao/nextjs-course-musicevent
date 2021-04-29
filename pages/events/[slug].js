@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/Link'
 import Image from 'next/image'
 import { FaPencilAlt, FaTimes } from 'react-icons/fa'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Layout from '@/components/Layout'
 import { API_URL } from '@/config/index'
@@ -9,8 +10,25 @@ import styles from '@/styles/Event.module.css'
 
 const EventPage = ({ evt }) => {
 
-  const deleteEvent = e => {
-    console.log('delete')
+  // ##### Component Variables
+  const router = useRouter();
+
+
+  // ##### Helper Functions
+  const deleteEvent = async (e) => {
+    if(confirm('Are You Sure?')) {
+      const res = await fetch(`${API_URL}/events/${evt.id}`, {
+        method: 'DELETE'
+      })
+
+      const data = await res.json()
+
+      if(!res.ok) {
+        roast.error(data.message) 
+      } else {
+        router.push('/events')
+      }
+    }
   }
 
   return (
@@ -35,7 +53,8 @@ const EventPage = ({ evt }) => {
           {new Date(evt.date).toLocaleDateString('en-US')} at {evt.time}
         </span>
         <h1>{evt.name}</h1>
-        
+        <ToastContainer />
+
         {evt.image && (
           <div className={styles.image}>
             <Image 
@@ -47,7 +66,7 @@ const EventPage = ({ evt }) => {
 
         <h3>Performers:</h3>
         <p>{evt.performers}</p>
-        <h3>Descriptions</h3>
+        <h3>Descriptions:</h3>
         <p>{evt.description}</p>
         <h3>Venue: {evt.venue}</h3>
         <p>{evt.address}</p>
