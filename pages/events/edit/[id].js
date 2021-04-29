@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaImage } from 'react-icons/fa'
 import moment from 'moment'
 
 import Layout from '@/components/Layout'
@@ -10,7 +12,17 @@ import { API_URL } from '@/config/index'
 import styles from '@/styles/Form.module.css'
 
 
-const EditEventPage = ( { evt: { name, performers, venue, address, date, time, description, id } }) => {
+const EditEventPage = ( { evt: { 
+  name, 
+  performers, 
+  venue, 
+  address, 
+  date, 
+  time, 
+  description, 
+  id, 
+  image 
+} }) => {
 
   // ##### Component variables
 
@@ -24,8 +36,13 @@ const EditEventPage = ( { evt: { name, performers, venue, address, date, time, d
     address,
     date,
     time,
-    description
+    description,
+    image
   })
+
+  const [ imagePreview, setImagePreview ] = useState(
+    image ? image.formats.thumbnail.url : null
+  )
 
 
   // ##### Helper Functions
@@ -156,6 +173,24 @@ const EditEventPage = ( { evt: { name, performers, venue, address, date, time, d
             value="Update Event" 
             className='btn'/>
         </form>
+
+        <h2>Event Image</h2>
+        {imagePreview ? (
+          <Image 
+            src={imagePreview}
+            height={100}
+            width={170}/>
+          ) : (
+            <div>
+              <p>No Image Uploaded</p>
+            </div>
+          )}
+
+          <div>
+            <button className='btn-secondary'>
+              <FaImage /> Set Image
+            </button>
+          </div>
       </div>
     </Layout>
   )
