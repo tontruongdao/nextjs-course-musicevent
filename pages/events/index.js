@@ -1,12 +1,11 @@
-import Link from 'next/link'
-
 import Layout from '@/components/Layout'
+import Pagination from '@/components/Pagination'
 import { API_URL, PER_PAGE } from "@/config/index"
 import EventItem from '@/components/EventItem'
 
 const EventsPage = ({ events, total, page }) => {
   
-  const lastPage = Math.ceil(total / PER_PAGE)
+  
 
   return (
     <div>
@@ -20,23 +19,11 @@ const EventsPage = ({ events, total, page }) => {
                 evt={evt}/>
             )
           )}
-          
-          {page > 1 && (
-            <Link href={`/events?page=${page - 1}`}>
-              <a className='btn-secondary'>
-                Prev
-              </a>
-            </Link>
-          )}
-
-          {page < lastPage && (
-            <Link href={`/events?page=${page + 1}`}>
-              <a className='btn-secondary'>
-                Next
-              </a>
-            </Link>
-          )}
-  </Layout>
+        
+        <Pagination 
+          page={page}
+          total={total}/>
+      </Layout>
     </div>
   )
 }
@@ -70,7 +57,7 @@ export const getServerSideProps = async ({ query: { page = 1 } }) => { // Destru
   const eventRes = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`)
   const events = await eventRes.json()
 
-  console.log(total, page)
+  // console.log(total, page)
   return {
     props: { 
       events,
