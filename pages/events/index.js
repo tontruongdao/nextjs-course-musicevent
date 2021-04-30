@@ -41,11 +41,21 @@ export const getServerSideProps = async ({ query: { page = 1 } }) => { // Destru
   // Calculate Start Page
   const start = +page === 1 ? 0 : (+page - 1) * PER_PAGE // Parse into an Integer
 
-  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`)
-  const events = await res.json()
+  // Fetch total/count of the events in 'strapi.io'
+  const totalRes = await fetch(`${API_URL}/events/count`)
+  const total = await totalRes.json()
 
+  // Fetch Events
+  const eventRes = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`)
+  const events = await eventRes.json()
+
+  console.log(total, page)
   return {
-    props: {events},
+    props: { 
+      events,
+      page: +page,
+      total
+    }
   }
 }
 
