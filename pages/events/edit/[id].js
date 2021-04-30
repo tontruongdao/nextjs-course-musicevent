@@ -8,41 +8,31 @@ import { FaImage } from 'react-icons/fa'
 import moment from 'moment'
 
 import Layout from '@/components/Layout'
-import { API_URL } from '@/config/index'
+import Modal from '@/components/Modal'
 import styles from '@/styles/Form.module.css'
+import { API_URL } from '@/config/index'
 
 
 const EditEventPage = ( { evt: { 
-  name, 
-  performers, 
-  venue, 
-  address, 
-  date, 
-  time, 
-  description, 
-  id, 
-  image 
+  name, performers, venue, address, date, 
+  time, description, id, image 
 } }) => {
 
   // ##### Component variables
 
   const router = useRouter()
 
-  // ##### React State
+  // ##### React States
   const [ values, setValues ] = useState({
-    name,
-    performers,
-    venue,
-    address,
-    date,
-    time,
-    description,
-    image
+    name, performers, venue, address,
+    date, time, description, image
   })
 
   const [ imagePreview, setImagePreview ] = useState(
     image ? image.formats.thumbnail.url : null
   )
+
+  const [ showModal, setShowModal ] = useState(false)
 
 
   // ##### Helper Functions
@@ -187,11 +177,19 @@ const EditEventPage = ( { evt: {
           )}
 
           <div>
-            <button className='btn-secondary'>
+            <button 
+              className='btn-secondary'
+              onClick={() => setShowModal(true)}>
               <FaImage /> Set Image
             </button>
           </div>
       </div>
+
+      <Modal 
+        show={showModal}
+        onClose={() => setShowModal(false)}>
+        IMAGE UPLOAD
+      </Modal>
     </Layout>
   )
 }
