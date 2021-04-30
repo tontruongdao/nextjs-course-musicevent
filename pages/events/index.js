@@ -1,10 +1,12 @@
+import Link from 'next/link'
+
 import Layout from '@/components/Layout'
 import { API_URL, PER_PAGE } from "@/config/index"
 import EventItem from '@/components/EventItem'
 
-const EventsPage = ({ events }) => {
+const EventsPage = ({ events, total, page }) => {
   
-  // console.log(events)
+  const lastPage = Math.ceil(total / PER_PAGE)
 
   return (
     <div>
@@ -17,6 +19,22 @@ const EventsPage = ({ events }) => {
                 key={evt.id}
                 evt={evt}/>
             )
+          )}
+          
+          {page > 1 && (
+            <Link href={`/events?page=${page - 1}`}>
+              <a className='btn-secondary'>
+                Prev
+              </a>
+            </Link>
+          )}
+
+          {page < lastPage && (
+            <Link href={`/events?page=${page + 1}`}>
+              <a className='btn-secondary'>
+                Next
+              </a>
+            </Link>
           )}
   </Layout>
     </div>
@@ -36,6 +54,9 @@ export default EventsPage
 //   }
 // }
 
+
+// We need to refetch data on each page of Pagination,
+// therefore, we could not use getStaticProps
 export const getServerSideProps = async ({ query: { page = 1 } }) => { // Destructure the page from request object & setting default to 1
 
   // Calculate Start Page
