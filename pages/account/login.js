@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from '@/components//Layout'
 import styles from '@/styles/AuthForm.module.css'
 
-const loginPage = () => {
+const LoginPage = () => {
 
   // ##### React States
   const [ email, setEmail ] = useState('')
@@ -60,4 +60,4 @@ const loginPage = () => {
   )
 }
 
-export default loginPage
+export default LoginPage
