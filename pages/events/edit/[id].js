@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaImage } from 'react-icons/fa'
 import moment from 'moment'
 
+import ImageUpload from '@/components/ImageUpload'
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import styles from '@/styles/Form.module.css'
@@ -71,6 +72,14 @@ const EditEventPage = ( { evt: {
     // Using spread operator to update values without overwriting previous values with input
     const { name, value } = e.target
     setValues({ ...values, [name]: value }) 
+  }
+
+  const loadImage = async (e) => {
+    const res = await fetch(`${API_URL}/events/${id}`)
+    const data = await res.json()
+
+    setImagePreview(data.image.formats.thumbnail.url)
+    setShowModal(false)
   }
 
 
@@ -188,7 +197,9 @@ const EditEventPage = ( { evt: {
       <Modal 
         show={showModal}
         onClose={() => setShowModal(false)}>
-        IMAGE UPLOAD
+        <ImageUpload 
+          evtId={id}
+          loadImage={loadImage}/>
       </Modal>
     </Layout>
   )
