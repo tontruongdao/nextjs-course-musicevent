@@ -4,7 +4,7 @@ import { FaExclamationCircle, FaUser } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Layout from '@/components//Layout'
+import Layout from '@/components/Layout'
 import styles from '@/styles/AuthForm.module.css'
 
 const RegisterPage = () => {

@@ -6,9 +6,9 @@ const AuthContext = createContext()
 
 
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   // ##### React State
-  const [ user, setUser ] = useState(null)
+  const [ user, setUser ] = useState({name: 'brad'})
   const [ error, setError ] = useState(null)
 
 
@@ -36,10 +36,11 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <div>
-      
-    </div>
+    <AuthContext.Provider 
+      value={{ user, error, register, login, logout }}>
+        {children}
+    </AuthContext.Provider>
   )
 }
 
-export default AuthProvider
+export default AuthContext
