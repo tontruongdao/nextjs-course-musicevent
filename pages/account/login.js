@@ -4,8 +4,10 @@ import { FaExclamationCircle, FaUser } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Layout from '@/components//Layout'
+import AuthContext from '@/context/AuthContext'
+import Layout from '@/components/Layout'
 import styles from '@/styles/AuthForm.module.css'
+
 
 const LoginPage = () => {
 
@@ -13,11 +15,13 @@ const LoginPage = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
+  // ##### React Context
+  const { login, error } = useContext(AuthContext)
 
   // ##### Helper Functions
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+    login({ email, password })
   }
 
   return (

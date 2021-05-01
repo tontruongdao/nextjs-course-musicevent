@@ -8,7 +8,7 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
   // ##### React State
-  const [ user, setUser ] = useState({name: 'brad'})
+  const [ user, setUser ] = useState(null)
   const [ error, setError ] = useState(null)
 
 

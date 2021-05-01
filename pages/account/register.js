@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import { FaExclamationCircle, FaUser } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import AuthContext from '@/context/AuthContext'
 import Layout from '@/components/Layout'
 import styles from '@/styles/AuthForm.module.css'
+
 
 const RegisterPage = () => {
   // ##### React States
@@ -13,6 +15,10 @@ const RegisterPage = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ passwordConfirm, setPasswordConfirm ] = useState('')
+
+
+  // ##### React Context
+  const { register, error } = useContext(AuthContext)
 
 
   // ##### Helper Functions
@@ -24,7 +30,7 @@ const RegisterPage = () => {
       return
     }
 
-    console.log({ username, email, password })
+    register({ username, email, password })
   }
 
   return (
