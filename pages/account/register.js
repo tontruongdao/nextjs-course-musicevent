@@ -20,6 +20,8 @@ const RegisterPage = () => {
   // ##### React Context
   const { register, error } = useContext(AuthContext)
 
+  // ##### React UseEffect
+  useEffect(() => error && toast.error(error))
 
   // ##### Helper Functions
   const handleSubmit = (e) => {
@@ -77,12 +79,12 @@ const RegisterPage = () => {
           <input
             className='btn' 
             type="submit" 
-            value="Login"/>
+            value="Register"/>
         </form>
 
         <p>
           Already have an account? 
-          <Link href='/account/login'> Login</Link>
+          <Link href='/account/login'> Register</Link>
         </p>
       </div>
     </Layout>

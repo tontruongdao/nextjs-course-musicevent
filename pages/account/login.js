@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FaExclamationCircle, FaUser } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,13 +11,15 @@ import styles from '@/styles/AuthForm.module.css'
 
 
 const LoginPage = () => {
+  // Component Variables
+  const router = useRouter()
 
   // ##### React States
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
   // ##### React Context
-  const { login, error } = useContext(AuthContext)
+  const { login, error, user } = useContext(AuthContext)
 
   // ##### React useEffect
   useEffect(() => error && toast.error(error))
@@ -27,6 +30,9 @@ const LoginPage = () => {
     login({ email, password })
   }
 
+  if(user) {
+    router.push('/account/dashboard')
+  }
   return (
     <Layout title='User Login'>
       <div className={styles.auth}>
