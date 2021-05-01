@@ -23,6 +23,8 @@ export const AuthProvider = ({ children }) => {
   // Renames the email to "identifier", to match strappi configuration
   const login = async ({ email:identifier, password }) => { 
     // console.log({ identifier, password})
+
+    // Taking Information from login component, and making a POST req to BE
     const res = await fetch(`${NEXT_URL}/api/login`, {
       method: 'POST',
       headers: {
@@ -34,6 +36,7 @@ export const AuthProvider = ({ children }) => {
       })
     })
     
+    // Result from  BE converted to json()
     const data = await res.json()
     console.log(data)
     
