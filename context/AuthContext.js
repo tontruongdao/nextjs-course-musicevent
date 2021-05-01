@@ -39,6 +39,13 @@ export const AuthProvider = ({ children }) => {
     // Result from  BE converted to json()
     const data = await res.json()
     console.log(data)
+
+    if(res.ok) {
+      setUser(data.user)
+    } else {
+      setError(data.message)
+      setError(null)
+    }
     
   }
 
