@@ -1,5 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react'
 import { useRouter } from 'next/router'
+
+import { toast } from 'react-toastify'
 import { API_URL, NEXT_URL } from '@/config/index'
 
 const AuthContext = createContext()
@@ -10,6 +12,9 @@ export const AuthProvider = ({ children }) => {
   // ##### React State
   const [ user, setUser ] = useState(null)
   const [ error, setError ] = useState(null)
+
+  // ##### React useEffect
+  useEffect(() => error && toast.error(error))
 
 
   // ##### Helper Functions
