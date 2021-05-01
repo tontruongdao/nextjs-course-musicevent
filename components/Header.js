@@ -11,6 +11,7 @@ const Header = () => {
 
   // React Context
   const { user, logout } = useContext(AuthContext) 
+  console.log(user)
 
   return (
     <header className={styles.header}>
@@ -47,6 +48,7 @@ const Header = () => {
               className="btn-secondary btn-icon"
               onClick={() => logout()}>
               <FaSignOutAlt />
+              Logout
             </button>
           </li>
           </> : <> 
