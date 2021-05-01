@@ -210,10 +210,11 @@ export default EditEventPage
 
 // ##### Server Fetching Functions
 
-export const getServerSideProps = async ( { params: { id } }) => {
+export const getServerSideProps = async ( { params: { id }, req }) => {
   
   const res = await fetch (`${API_URL}/events/${id}`)
   const evt = await res.json()
+  console.log(`cookie is ${req.headers.cookie}`)
 
   return {
     props: {
