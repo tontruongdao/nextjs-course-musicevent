@@ -9,13 +9,15 @@ const AuthContext = createContext()
 
 
 export const AuthProvider = ({ children }) => {
+  // Component Variables
+  const router = useRouter()
+
   // ##### React State
   const [ user, setUser ] = useState(null)
   const [ error, setError ] = useState(null)
 
   // ##### React useEffect
-  useEffect(() => error && toast.error(error))
-
+  useEffect(() => checkUserLoggedIn(), [])
 
   // ##### Helper Functions
   
@@ -65,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     // Hitting our own API route
     const res = await fetch(`${NEXT_URL}/api/user`)
     const data = await res.json()
+    console.log(data.user)
 
     if(res.ok) {
       setUser(data.user)

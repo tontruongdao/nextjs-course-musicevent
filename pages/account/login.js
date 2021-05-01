@@ -18,6 +18,9 @@ const LoginPage = () => {
   // ##### React Context
   const { login, error } = useContext(AuthContext)
 
+  // ##### React useEffect
+  useEffect(() => error && toast.error(error))
+
   // ##### Helper Functions
   const handleSubmit = (e) => {
     e.preventDefault()
